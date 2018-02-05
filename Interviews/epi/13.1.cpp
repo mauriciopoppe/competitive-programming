@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define FOR(i,a,b) for(int i=(a);i<(b);++i)
+#define F(i,a) FOR(i,0,a)
+#define MS(a, v) memset(a, v, sizeof a)
+#define NL printf("\n")
+#define INF 1e9
+#define PI acos(-1)
+#define EPS 1e-9
+#define TR(ar, it) for ( typeof(ar.begin()) it = ar.begin(); it != ar.end(); it++ )
+
+typedef long long LL;
+typedef pair<int, int> pii;
+typedef vector<int> vi;
+
+void solve(vector<string> &dictionary) {
+	map<string, vector<string> > m;
+	for (const string &str : dictionary) {
+		string sorted(str);
+		sort(sorted.begin(), sorted.end());
+		m[sorted].push_back(str);
+	}
+
+	for (auto &it : m) {
+		for (string &str : it.second) {
+			cout << str << " ";
+		}
+		cout << endl;
+	}
+}
+
+int main() {
+	vector<string> dict;
+	dict.push_back("aab");
+	dict.push_back("baa");
+	dict.push_back("aba");
+	dict.push_back("qqw");
+	dict.push_back("wwq");
+	dict.push_back("wqq");
+	solve(dict);
+	return 0;
+}

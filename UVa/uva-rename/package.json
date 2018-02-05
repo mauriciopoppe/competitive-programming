@@ -1,0 +1,24 @@
+{
+  "name": "uva-rename",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "case": "^1.5.4",
+    "change-case": "^3.0.1",
+    "cheerio": "^1.0.0-rc.2",
+    "google": "^2.1.0",
+    "kebab-case": "^1.0.0",
+    "prompt-confirm": "^1.2.0",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5",
+    "yargs": "^11.0.0"
+  }
+}
