@@ -2,9 +2,34 @@
 
 > Solving puzzles while learning a new language
 
+## [2019](https://adventofcode.com/2019) - C++
+
+### Setup
+
+With CLion:
+
+- download the stdc++.h file to XCode
+- compile and run the programs from the terminal
+
+```sh
+competitive() {
+  now=$(date +"%Y_%m_%d__%H_%M_%S")
+  FILENAME=${TMPDIR}$(basename "$1")"__"${now}
+  g++ -std=c++11 -pedantic -Wextra -Wall -Wno-sign-compare -O2 -fsanitize=undefined $1 -o $FILENAME && $FILENAME
+}
+
+competitive <file>
+```
+
+### Notes
+
+### Cheatsheet and refresher
+
+- https://www.mauriciopoppe.com/notes/programming/programming-languages/cpp-refresher/
+
 ## [2017](http://adventofcode.com/2017) - [Go](https://golang.org/)
 
-Structure:
+### Structure
 
 Three files: `in` (the input), `main.go` (the solution), `main_test.go` (the tests)
 
@@ -15,18 +40,18 @@ go run main.go
 go test
 ```
 
-Notes:
+### Notes
 
 - input is read similar to Java with scanners
 - the solution methods should receive the parsed input that way the method can be easily tested
 - file should be rewinded after scanned if needed
 
-Problems:
+### Problems
 
 - No `abs`, `min`, `max` methods for `int`
 - No direct conversion from `[]int` to `string`
 
-Cheatsheet:
+### Cheatsheet
 
 ```go
 // read a line with ? words
