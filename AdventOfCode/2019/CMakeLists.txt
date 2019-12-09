@@ -4,4 +4,4 @@ project(advent_of_code)
 set(CMAKE_CXX_STANDARD 14)
 set(SRC_ROOT .)
 
-add_executable(main ${SRC_ROOT}/07/main.cpp)
+add_executable(main ${SRC_ROOT}/08/main.cpp)
