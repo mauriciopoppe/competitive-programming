@@ -6,11 +6,32 @@
 #include "test_framework/test_failure.h"
 #include "test_framework/timed_executor.h"
 using std::unique_ptr;
+
+struct State {
+    int matches = 0;
+    BinaryTreeNode<int> *node;
+};
+
+State LCA(const unique_ptr<BinaryTreeNode<int>>& tree,
+          const unique_ptr<BinaryTreeNode<int>>& node0,
+          const unique_ptr<BinaryTreeNode<int>>& node1) {
+    State next = {0, nullptr};
+    if (tree == nullptr) {
+        return next;
+    }
+    State left = LCA(tree->left, node0, node1);
+    if (left.matches == 2) return left;
+    State right = LCA(tree->right, node0, node1);
+    if (right.matches == 2) return right;
+    next.matches = left.matches + right.matches + (tree == node0) + (tree == node1);
+    if (next.matches == 2) next.node = tree.get();
+    return next;
+}
+
 BinaryTreeNode<int>* Lca(const unique_ptr<BinaryTreeNode<int>>& tree,
                          const unique_ptr<BinaryTreeNode<int>>& node0,
                          const unique_ptr<BinaryTreeNode<int>>& node1) {
-  // TODO - you fill in here.
-  return nullptr;
+    return LCA(tree, node0, node1).node;
 }
 int LcaWrapper(TimedExecutor& executor,
                const unique_ptr<BinaryTreeNode<int>>& tree, int key0,
