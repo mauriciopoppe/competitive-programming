@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LeetcodeEditor">
+    <option name="projectConfig">
+      <map>
+        <entry key="$PROJECT_DIR$/leetcode/editor/en/[424]Longest Repeating Character Replacement.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/en/[424]Longest Repeating Character Replacement.cpp" />
+              <option name="questionId" value="424" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/en/[6]ZigZag Conversion.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/en/[6]ZigZag Conversion.cpp" />
+              <option name="questionId" value="6" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dn/2mqv6b716jq_xgxypnzpyr740000gq/T/leetcode/editor/en/[395]Longest Substring with At Least K Repeating Characters.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dn/2mqv6b716jq_xgxypnzpyr740000gq/T/leetcode/editor/en/[395]Longest Substring with At Least K Repeating Characters.cpp" />
+              <option name="questionId" value="395" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/dn/2mqv6b716jq_xgxypnzpyr740000gq/T/leetcode/editor/en/[424]Longest Repeating Character Replacement.cpp">
+          <value>
+            <LeetcodeEditor>
+              <option name="path" value="/var/folders/dn/2mqv6b716jq_xgxypnzpyr740000gq/T/leetcode/editor/en/[424]Longest Repeating Character Replacement.cpp" />
+              <option name="questionId" value="424" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
