@@ -1,5 +1,6 @@
 import functools
 import math
+from queue import PriorityQueue
 from typing import Iterator, List
 
 from test_framework import generic_test
@@ -28,8 +29,18 @@ class Star:
 
 
 def find_closest_k_stars(stars: Iterator[Star], k: int) -> List[Star]:
-    # TODO - you fill in here.
-    return []
+
+    pq = PriorityQueue()
+    for star in stars:
+        pq.put((-star.distance, star))
+        if len(pq.queue) > k:
+            pq.get()
+
+    sol = []
+    while len(pq.queue):
+        sol.append(pq.get()[1])
+
+    return sol
 
 
 def comp(expected_output, output):
