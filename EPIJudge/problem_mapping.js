@@ -334,7 +334,7 @@ problem_mapping = {
                 "total": 2001
             },
             "Python: next_permutation.py": {
-                "passed": 0,
+                "passed": 2001,
                 "total": 2001
             }
         },
@@ -966,7 +966,7 @@ problem_mapping = {
                 "total": 65
             },
             "Python: circular_queue.py": {
-                "passed": 0,
+                "passed": 65,
                 "total": 65
             }
         },
