@@ -16,6 +16,9 @@
 #include "test_config.h"
 #include "test_timer.h"
 #include "test_utils.h"
+#include <bits/stdc++.h>
+
+using namespace std;
 
 namespace test_framework {
 using json = nlohmann::json;

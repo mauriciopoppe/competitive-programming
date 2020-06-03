@@ -19,7 +19,7 @@ BinaryTreeNode<int>* Lca(const unique_ptr<BinaryTreeNode<int>>& node0,
     auto *it1 = node1.get();
     int h0 = height(it0);
     int h1 = height(it1);
-    if (h1 > h0) std::swap(it0, it1);
+    if (h1 > h0) swap(it0, it1);
     int diff = abs(h1 - h0);
     while (diff--) it0 = it0->parent;
     while (it0 != it1) {

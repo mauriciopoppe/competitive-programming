@@ -4,8 +4,19 @@
 using std::vector;
 
 bool HasThreeSum(vector<int> A, int t) {
-  // TODO - you fill in here.
-  return true;
+  sort(A.begin(), A.end());
+  for (int i = 0; i < (int) A.size(); i += 1) {
+      int target = t - A[i];
+      int lo = i;
+      int hi = (int) A.size() - 1;
+      while (lo <= hi) {
+          int cand = A[lo] + A[hi];
+          if (cand == target) return true;
+          if (cand > target) hi--;
+          if (cand < target) lo++;
+      }
+  }
+  return false;
 }
 
 int main(int argc, char* argv[]) {
