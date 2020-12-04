@@ -30,7 +30,6 @@ func TestOne(t *testing.T) {
 		args args
 		want int
 	}{
-		// TODO: Add test cases.
 		{"One", args{oneArg}, 7},
 	}
 	for _, tt := range tests {
