@@ -22,7 +22,7 @@ func TestOne(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := One(tt.args.r); got != tt.want {
+			if got := One(tt.args.r, 2020); got != tt.want {
 				t.Errorf("One() = %v, want %v", got, tt.want)
 			}
 		})
