@@ -121,26 +121,21 @@ func One(r io.Reader) int {
 	return sum
 }
 
-func dfs(fulfills [][]int, iter int, solved *bool, order *[]int, m *map[int]bool) {
+func dfs(fulfills [][]int, iter int, order *[]int, m map[int]bool) {
 	//fmt.Println(*order)
-	if *solved {
-		return
-	}
 	if iter == len(fulfills) {
-		fmt.Println("Solved!")
-		*solved = true
 		return
 	}
 	for _, v := range fulfills[iter] {
-		if !(*m)[v] {
-			(*m)[v] = true
+		if !m[v] {
+			m[v] = true
 			*order = append(*order, v)
-			dfs(fulfills, iter+1, solved, order, m)
-			if *solved {
+			dfs(fulfills, iter+1, order, m)
+			if len(*order) == len(fulfills) {
 				return
 			}
 			*order = (*order)[:len(*order)-1]
-			(*m)[v] = false
+			m[v] = false
 		}
 	}
 }
@@ -195,8 +190,7 @@ func Two(r io.Reader) int64 {
 
 	order := make([]int, 0)
 	taken := make(map[int]bool)
-	solved := false
-	dfs(fulfills, 0, &solved, &order, &taken)
+	dfs(fulfills, 0, &order, taken)
 	fmt.Println(order)
 
 	var mult int64 = 1
