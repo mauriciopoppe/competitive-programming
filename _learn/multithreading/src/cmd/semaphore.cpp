@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <thread>
 #include <vector>
 #include "../lib/Semaphore.cpp"
@@ -11,13 +12,13 @@ public:
         unsigned long thread_id = std::hash<std::thread::id>{}(std::this_thread::get_id());
         s.Acquire();
         printf("thread_id=%zu id=%d\n", thread_id, id);
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 10));
         s.Release();
     }
 
     CommonResource() {
         Semaphore sem(5);
-        _threads.resize(10);
+        _threads.resize(100);
         for (int i = 0; i < (int)_threads.size(); i += 1) {
             std::thread t(&CommonResource::Run, this, std::ref(sem), i);
             _threads[i] = std::move(t);
@@ -31,6 +32,7 @@ public:
 };
 
 int main () {
+    srand(time(NULL));
     CommonResource cr;
     return 0;
 }
