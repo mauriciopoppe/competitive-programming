@@ -2,6 +2,12 @@
 
 > Solving puzzles while learning a new language
 
+## [2020](https://adventofcode.com/2020) - Go
+
+### Setup
+
+This time I used a tool to generate the source code/test for a problem.
+
 ## [2019](https://adventofcode.com/2019) - C++
 
 ### Setup
