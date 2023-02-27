@@ -3,21 +3,21 @@
 #include "test_framework/generic_test.h"
 using namespace std;
 
-int height(const unique_ptr<BinaryTreeNode<int>> &node, bool &valid) {
-    if (!node) return 0;
-    if (!valid) return -1;
-    int height_left = height(node->left, valid);
-    int height_right = height(node->right, valid);
-    if (abs(height_left - height_right) > 1) {
-        valid = false;
-    }
-    return max(height_left, height_right) + 1;
+int IsBalancedWithValid(const unique_ptr<BinaryTreeNode<int>> &node, bool &valid) {
+  if (!node) return 0;
+  if (!valid) return 0;
+  int hleft = IsBalancedWithValid(node->left, valid);
+  int hright = IsBalancedWithValid(node->right, valid);
+  if (abs(hleft - hright) > 1) {
+    valid = false;
+  }
+  return max(hleft, hright) + 1;
 }
 
 bool IsBalanced(const unique_ptr<BinaryTreeNode<int>>& tree) {
-  bool isValid = true;
-  height(tree, isValid);
-  return isValid;
+  bool valid = true;
+  IsBalancedWithValid(tree, valid);
+  return valid;
 }
 
 int main(int argc, char* argv[]) {

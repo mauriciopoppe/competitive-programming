@@ -27,3 +27,7 @@ epi_judge_java/java_build/
 
 # OS X specific files
 .DS_Store
+
+bin/
+test_data/
+problem_mapping.js

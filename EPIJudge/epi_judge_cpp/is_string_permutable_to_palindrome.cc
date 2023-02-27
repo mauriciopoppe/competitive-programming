@@ -4,8 +4,15 @@
 using std::string;
 
 bool CanFormPalindrome(const string& s) {
-  // TODO - you fill in here.
-  return true;
+  map<char, int> cnt;
+  for (int i = 0; i < s.size(); i += 1) {
+    cnt[s[i]]++;
+  }
+  int odd = 0;
+  for (auto &v: cnt) {
+    if (v.second % 2 == 1) odd++;
+  }
+  return odd <= 1;
 }
 
 int main(int argc, char* argv[]) {

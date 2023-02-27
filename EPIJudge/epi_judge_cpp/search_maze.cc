@@ -1,6 +1,7 @@
 #include <istream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "test_framework/generic_test.h"
 #include "test_framework/serialization_traits.h"
@@ -17,8 +18,47 @@ struct Coordinate {
 };
 vector<Coordinate> SearchMaze(vector<vector<Color>> maze, const Coordinate& s,
                               const Coordinate& e) {
-  // TODO - you fill in here.
-  return {};
+  vector<int> dx = {-1, 0, 0, 1};
+  vector<int> dy = {0, 1, -1, 0};
+
+  typedef pair<int, int> pii;
+  map<pii, pii> parent;
+  parent[make_pair(s.x, s.y)] = make_pair(-1, -1);
+
+  queue<pii> q;
+  q.push(make_pair(s.x, s.y));
+
+  function<bool(pii)> valid = [&maze](pii cand) -> bool {
+    bool inbounds = cand.first >= 0 && cand.second >= 0 && cand.first < maze.size() && cand.second < maze[0].size();
+    if (!inbounds) return false;
+    return maze[cand.first][cand.second] == Color::kWhite;
+  };
+
+  while (!q.empty()) {
+    pii top = q.front();
+    q.pop();
+
+    for (int k = 0; k < 4; k += 1) {
+      pii cand = { top.first + dx[k], top.second + dy[k] };
+      if (valid(cand) && parent.find(cand) == parent.end()) {
+        parent[cand] = top;
+        q.push(cand);
+      }
+    }
+  }
+
+  vector<Coordinate> output;
+  if (parent.find(pii(e.x, e.y)) == parent.end()) {
+    return output;
+  }
+
+  pii it = pii(e.x, e.y);
+  while (it.first != -1) {
+    output.push_back(Coordinate{it.first, it.second});
+    it = parent[it];
+  }
+  reverse(output.begin(), output.end());
+  return output;
 }
 
 namespace test_framework {
