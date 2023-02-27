@@ -1,4 +1,4 @@
-#include "lib/ThreadPool.cpp"
+#include "../lib/ThreadPool.cpp"
 
 void ExampleThreadpool() {
     std::hash<std::thread::id> hasher;

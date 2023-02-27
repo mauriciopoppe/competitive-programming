@@ -22,7 +22,7 @@ class ThreadPool {
 	// the condition variable that pauses a thread if there are no tasks pending
 	std::condition_variable _cond;
 
-	// terminated is true if the ThreadPool instance goes out of scope.
+	// _shutdown is true if the ThreadPool instance goes out of scope.
 	bool _shutdown;
 
 	// _running is the number of tasks currently _running in the ThreadPool.

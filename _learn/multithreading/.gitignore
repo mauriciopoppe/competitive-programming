@@ -1,3 +1,4 @@
 runner
 build
+bin
 !Makefile
