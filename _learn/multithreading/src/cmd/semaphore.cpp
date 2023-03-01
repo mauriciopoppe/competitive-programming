@@ -12,13 +12,14 @@ public:
         unsigned long thread_id = std::hash<std::thread::id>{}(std::this_thread::get_id());
         s.Acquire();
         printf("thread_id=%zu id=%d\n", thread_id, id);
-        std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 10));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        // std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 10));
         s.Release();
     }
 
     CommonResource() {
         Semaphore sem(5);
-        _threads.resize(100);
+        _threads.resize(10);
         for (int i = 0; i < (int)_threads.size(); i += 1) {
             std::thread t(&CommonResource::Run, this, std::ref(sem), i);
             _threads[i] = std::move(t);

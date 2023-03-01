@@ -5,8 +5,16 @@ SRC_PATH = src
 BUILD_PATH = build
 BIN_PATH = bin
 
-# executable #
-BIN_NAME =
+PROGRAMS =
+
+PROGRAMS += threadpool
+threadpool_OBJS = $(BUILD_PATH)/lib/ThreadPool.o
+
+PROGRAMS += semaphore
+semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
+
+PROGRAMS += two_thread_sync_with_semaphore
+two_thread_sync_with_semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
@@ -47,22 +55,20 @@ $(BUILD_PATH)/%.o: $(SRC_PATH)/%.cpp
 
 -include $(DEPS)
 
-$(BIN_PATH)/threadpool: $(BUILD_PATH)/lib/ThreadPool.o $(BUILD_PATH)/cmd/threadpool.o
-	@echo "Linking: $@"
-	$(CXX) $^ -o $@ ${LIBS}
-.PHONY: threadpool
-threadpool: configure $(BIN_PATH)/threadpool
+define PROGRAM_template =
+$$(BIN_PATH)/$(1): $$($(1)_OBJS) $$(BUILD_PATH)/cmd/$(1).o
+	@echo "Linking: $$@"
+	$$(CXX) $$^ -o $$@ $${LIBS}
 
-.PHONY: threadpool-test
-threadpool-test: threadpool
+.PHONY: $(1)
+$(1): configure $$(BIN_PATH)/$(1)
+
+.PHONY: $(1)-test
+$(1)-test: $(1)
 	for i in {1..100}; do \
-		printf "$$i "; \
-		$(BIN_PATH)/threadpool > /dev/null; \
+		printf "$$$$i "; \
+		$$(BIN_PATH)/$(1) > /dev/null; \
 		done
+endef
 
-$(BIN_PATH)/semaphore: $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/cmd/semaphore.o
-	@echo "Linking: $@"
-	$(CXX) $^ -o $@ ${LIBS}
-.PHONY: semaphore
-semaphore: configure $(BIN_PATH)/semaphore
-
+$(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))

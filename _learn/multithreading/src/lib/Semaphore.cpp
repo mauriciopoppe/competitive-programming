@@ -8,25 +8,23 @@ class Semaphore {
 private:
 	std::mutex _m;
 	std::condition_variable _cv;
-	int _max_requests;
-	int _current_requests;
+	int _capacity;
 public:
-	Semaphore(int max_requests) {
-		_max_requests = max_requests;
-		_current_requests = 0;
+	Semaphore(int initial_capacity) {
+		_capacity = initial_capacity;
 	}
 
 	void Acquire() {
 		std::unique_lock<std::mutex> lock(_m);
-		while (_current_requests == _max_requests) {
+		while (_capacity < 0) {
 			_cv.wait(lock);
 		}
-		_current_requests += 1;
+		_capacity -= 1;
 	}
 
 	void Release() {
 		std::lock_guard<std::mutex> lock(_m);
-		_current_requests -= 1;
+		_capacity += 1;
 		_cv.notify_all();
 	}
 };
