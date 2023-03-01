@@ -16,7 +16,7 @@ public:
 
 	void Acquire() {
 		std::unique_lock<std::mutex> lock(_m);
-		while (_capacity < 0) {
+		while (_capacity == 0) {
 			_cv.wait(lock);
 		}
 		_capacity -= 1;

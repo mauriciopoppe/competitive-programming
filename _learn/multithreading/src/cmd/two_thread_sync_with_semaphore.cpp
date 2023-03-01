@@ -10,9 +10,11 @@ private:
     State v;
 
 public:
+    // Syncs 2 threads (reader, writer). Makes sure that the writing thread
+    // completes before executing the reader thread.
     CommonResource() {
         v = UNKNOWN;
-        Semaphore sem(-1);
+        Semaphore sem(0);
         std::thread reader_thread(&CommonResource::reader, this, std::ref(sem));
         std::thread writer_thread(&CommonResource::writer, this, std::ref(sem));
         if (reader_thread.joinable()) {

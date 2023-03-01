@@ -16,6 +16,9 @@ semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 PROGRAMS += two_thread_sync_with_semaphore
 two_thread_sync_with_semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 
+PROGRAMS += rendezvous
+rendezvous_OBJS = $(BUILD_PATH)/lib/Semaphore.o
+
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
 # Set the object file names, with the source directory stripped
@@ -65,6 +68,7 @@ $(1): configure $$(BIN_PATH)/$(1)
 
 .PHONY: $(1)-test
 $(1)-test: $(1)
+	set -e; \
 	for i in {1..100}; do \
 		printf "$$$$i "; \
 		$$(BIN_PATH)/$(1) > /dev/null; \
