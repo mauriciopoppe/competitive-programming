@@ -10,7 +10,7 @@ PROGRAMS =
 PROGRAMS += threadpool
 threadpool_OBJS = $(BUILD_PATH)/lib/ThreadPool.o
 
-PROGRAMS += semaphore
+PROGRAMS += multiplex
 semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 
 PROGRAMS += two_thread_sync_with_semaphore
@@ -18,6 +18,9 @@ two_thread_sync_with_semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 
 PROGRAMS += rendezvous
 rendezvous_OBJS = $(BUILD_PATH)/lib/Semaphore.o
+
+PROGRAMS += barrier_not_reusable
+barrier_not_reusable_OBJS = $(BUILD_PATH)/lib/ThreadPool.o
 
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)

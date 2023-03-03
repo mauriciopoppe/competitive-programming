@@ -71,7 +71,7 @@ public:
 		_shutdown = false;
 		for (int i = 0; i < (int)threads.size(); i += 1) {
 			// https://www.justsoftwaresolutions.co.uk/threading/multithreading-in-c++0x-part-3.html
-			std::thread t(&ThreadPool::ThreadRunner, std::ref(*this));
+			std::thread t(&ThreadPool::ThreadRunner, this);
 			threads[i] = std::move(t);
 		}
 	}

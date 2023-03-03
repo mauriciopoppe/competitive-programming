@@ -25,6 +25,6 @@ public:
 	void Release() {
 		std::lock_guard<std::mutex> lock(_m);
 		_capacity += 1;
-		_cv.notify_all();
+		_cv.notify_one();
 	}
 };
