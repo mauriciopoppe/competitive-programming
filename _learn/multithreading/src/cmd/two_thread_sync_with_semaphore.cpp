@@ -31,11 +31,11 @@ public:
             exit(1);
         }
         v = WRITTEN;
-        sem.Release();
+        sem.Signal();
     }
 
     void reader(Semaphore &sem) {
-        sem.Acquire();
+        sem.Wait();
         if (v == UNKNOWN) {
             printf("ERROR: value shouldn't be UNKNOWN");
             exit(1);

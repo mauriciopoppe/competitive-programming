@@ -44,12 +44,14 @@ public:
 
     void Run(ThreadSafeVector &v, Semaphore &mutex, Semaphore &barrier) {
         v.Push("0");
-        mutex.Acquire();
+        mutex.Wait();
         _count += 1;
-        mutex.Release();
-        if (_count == _n) barrier.Release();
-        barrier.Acquire();
-        barrier.Release();
+        if (_count == _n) {
+            barrier.Signal();
+        }
+        mutex.Signal();
+        barrier.Wait();
+        barrier.Signal();
         v.Push("1");
     }
 };

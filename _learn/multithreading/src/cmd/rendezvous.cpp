@@ -27,15 +27,15 @@ public:
         Semaphore waitB(0);
         auto handlerA = [&]() {
             statements.push_back("a1");
-            waitA.Release();
-            waitB.Acquire();
+            waitA.Signal();
+            waitB.Wait();
             statements.push_back("a2");
         };
         auto handlerB = [&]() {
-            waitA.Acquire();
+            waitA.Wait();
             statements.push_back("b1");
             statements.push_back("b2");
-            waitB.Release();
+            waitB.Signal();
         };
         std::thread ta(handlerA);
         std::thread tb(handlerB);

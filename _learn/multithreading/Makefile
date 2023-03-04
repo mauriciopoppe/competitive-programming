@@ -28,6 +28,9 @@ barrier_turnstile_one_turn_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/li
 PROGRAMS += barrier
 barrier_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Barrier.o
 
+PROGRAMS += dancers
+dancers_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Barrier.o
+
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
 # Set the object file names, with the source directory stripped
@@ -85,3 +88,6 @@ $(1)-test: $(1)
 endef
 
 $(foreach prog,$(PROGRAMS),$(eval $(call PROGRAM_template,$(prog))))
+
+.PHONY: all-test
+all-test: $(foreach prog,$(PROGRAMS),$(prog)-test)

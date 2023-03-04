@@ -14,7 +14,7 @@ public:
 		_capacity = initial_capacity;
 	}
 
-	void Acquire() {
+	void Wait() {
 		std::unique_lock<std::mutex> lock(_m);
 		while (_capacity == 0) {
 			_cv.wait(lock);
@@ -22,7 +22,7 @@ public:
 		_capacity -= 1;
 	}
 
-	void Release() {
+	void Signal() {
 		std::lock_guard<std::mutex> lock(_m);
 		_capacity += 1;
 		_cv.notify_one();

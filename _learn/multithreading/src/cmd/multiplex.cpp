@@ -27,11 +27,11 @@ public:
 
     void Run(Semaphore &s, int id) {
         unsigned long thread_id = std::hash<std::thread::id>{}(std::this_thread::get_id());
-        s.Acquire();
+        s.Wait();
         printf("thread_id=%zu id=%d\n", thread_id, id);
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         // std::this_thread::sleep_for(std::chrono::milliseconds(rand() % 10));
-        s.Release();
+        s.Signal();
     }
 };
 

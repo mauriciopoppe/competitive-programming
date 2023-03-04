@@ -19,29 +19,30 @@ public:
     ~Barrier() {
         free(_mutex);
         free(_turnstile);
+        free(_turnstile2);
     }
 
     void Wait() {
-        _mutex->Acquire();
+        _mutex->Wait();
         _current += 1;
         if (_current == _n) {
-            _turnstile2->Acquire();
-            _turnstile->Release();
+            _turnstile2->Wait();
+            _turnstile->Signal();
         }
-        _mutex->Release();
+        _mutex->Signal();
 
-        _turnstile->Acquire();
-        _turnstile->Release();
+        _turnstile->Wait();
+        _turnstile->Signal();
 
-        _mutex->Acquire();
+        _mutex->Wait();
         _current -= 1;
         if (_current == 0) {
-            _turnstile->Acquire();
-            _turnstile2->Release();
+            _turnstile->Wait();
+            _turnstile2->Signal();
         }
-        _mutex->Release();
+        _mutex->Signal();
 
-        _turnstile2->Acquire();
-        _turnstile2->Release();
+        _turnstile2->Wait();
+        _turnstile2->Signal();
     }
 };
