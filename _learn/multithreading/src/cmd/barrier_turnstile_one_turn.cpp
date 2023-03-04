@@ -1,51 +1,29 @@
 #include <cstdlib>
 #include <thread>
 #include <vector>
-
-class ThreadSafeVector {
-    std::mutex _mu;
-    std::vector<std::string> v;
-
-public:
-    void Push(std::string str) {
-        std::lock_guard<std::mutex> g(_mu);
-        v.push_back(str);
-    }
-
-    void Pop() {
-        std::lock_guard<std::mutex> g(_mu);
-        v.pop_back();
-    }
-
-    int Size() {
-        return v.size();
-    }
-
-    std::vector<std::string> Clone() {
-        std::lock_guard<std::mutex> g(_mu);
-        std::vector<std::string> out = v;
-        return out;
-    }
-};
+#include "../lib/ThreadSafeVector.cpp"
+#include "../lib/Semaphore.cpp"
 
 class Demo {
 private:
     std::vector<std::thread> _threads;
     int _n;
-    std::mutex _mu;
-    std::condition_variable _cv;
+    int _count;
 
 public:
     // Creates a semaphore with an initial capacity of `semaphore_capacity` and
     // `n_threads` threads, access to a critical section inside each thread is controller
     // by at most `semaphore_capacity` concurrent threads.
     Demo(int n_threads) {
+        _count = 0;
         _n = n_threads;
         _threads.resize(n_threads);
 
         ThreadSafeVector ts_messages;
+        Semaphore mutex(1);
+        Semaphore barrier(0);
         for (int i = 0; i < (int)_threads.size(); i += 1) {
-            std::thread t(&Demo::Run, this, std::ref(ts_messages));
+            std::thread t(&Demo::Run, this, std::ref(ts_messages), std::ref(mutex), std::ref(barrier));
             _threads[i] = std::move(t);
         }
         for (auto &t: _threads) {
@@ -64,21 +42,14 @@ public:
         }
     }
 
-    void Run(ThreadSafeVector &v) {
+    void Run(ThreadSafeVector &v, Semaphore &mutex, Semaphore &barrier) {
         v.Push("0");
-        {
-            std::lock_guard<std::mutex> g(_mu);
-            _n--;
-            if (_n == 0) {
-                _cv.notify_all();
-            }
-        }
-        {
-            std::unique_lock<std::mutex> g(_mu);
-            while (_n != 0) {
-                _cv.wait(g);
-            }
-        }
+        mutex.Acquire();
+        _count += 1;
+        mutex.Release();
+        if (_count == _n) barrier.Release();
+        barrier.Acquire();
+        barrier.Release();
         v.Push("1");
     }
 };

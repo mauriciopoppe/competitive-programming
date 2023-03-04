@@ -19,8 +19,14 @@ two_thread_sync_with_semaphore_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 PROGRAMS += rendezvous
 rendezvous_OBJS = $(BUILD_PATH)/lib/Semaphore.o
 
-PROGRAMS += barrier_not_reusable
-barrier_not_reusable_OBJS = $(BUILD_PATH)/lib/ThreadPool.o
+PROGRAMS += barrier_mutex_one_turn
+barrier_mutex_one_turn_OBJS = $(BUILD_PATH)/lib/ThreadSafeVector.o
+
+PROGRAMS += barrier_turnstile_one_turn
+barrier_turnstile_one_turn_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o
+
+PROGRAMS += barrier
+barrier_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Barrier.o
 
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
