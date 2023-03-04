@@ -1,18 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-#define FOR(i,a,b) for(int i=(a);i<(b);++i)
-#define F(i,a) FOR(i,0,a)
-#define MS(a, v) memset(a, v, sizeof a)
-#define NL printf("\n")
-#define INF 1e9
-#define PI acos(-1)
-#define EPS 1e-9
-#define TR(ar, it) for ( typeof(ar.begin()) it = ar.begin(); it != ar.end(); it++ )
-
-typedef long long LL;
-typedef pair<int, int> pii;
-typedef vector<int> vi;
+#include "./base.h"
 
 struct Node {
 	int value;
@@ -25,21 +11,21 @@ struct Node {
 };
 
 class BST {
-public:	
+public:
 	Node *root;
 
 	BST() {
 		root = NULL;
 	}
-	
+
 	void add(int value) {
 		root = add(root, value);
 	}
-	
+
 	Node *add(Node *root, int value) {
 		if (!root) {
 			return new Node(value);
-		} 
+		}
 		if (root->value > value) {
 			root->left = add(root->left, value);
 		} else {
@@ -65,24 +51,36 @@ public:
 			return find(node->right, value);
 		}
 	}
-	
+
 	void inorder() {
-		inorder(root);
+		inorder(root, 0);
 	}
-	
-	void inorder(Node *root) {
+
+	void preorder() {
+		preorder(root, 0);
+	}
+
+	void inorder(Node *root, int level) {
 		if (!root) {
 			return;
 		}
-		
-		inorder(root->left);
-		printf("%d\n", root->value);
-		inorder(root->right);				
+		inorder(root->left, level+1);
+		printf("%s%2d\n", string(level*2, ' ').c_str(), root->value);
+		inorder(root->right, level+1);
+	}
+
+	void preorder(Node *root, int level) {
+		if (!root) {
+			return;
+		}
+		printf("%s%2d\n", string(level*2, ' ').c_str(), root->value);
+		preorder(root->left, level+1);
+		preorder(root->right, level+1);
 	}
 
 	void *lca(int a, int b) {
 		Node *common = lca(root, find(a), find(b));
-		cout << "lca=" << common->value << endl;
+		printf("lca(%d, %d) = %d\n", a, b, common->value);
 	}
 
 	Node *lca(Node *current, Node *a, Node *b) {
@@ -91,22 +89,34 @@ public:
 		}
 		Node *left = lca(current->left, a, b);
 		Node *right = lca(current->right, a, b);
-		bool equal = (current == a || current == b);
 		// a and b are on different branches
 		if (right && left) {
 			return current;
 		}
-		if ((right || left) && equal) {
+
+		bool equal = (current == a || current == b);
+		// either:
+		// - a is this node and b is a descendant
+		// - b is this node and a is a descendant
+		if (equal && (right || left)) {
 			return current;
 		}
 
+		// both a and b are current!
+		if (equal && !(right && left)) {
+			return current;
+		}
+
+		// both nodes are descendants on the left or right branches
 		if (right) {
 			return right;
 		}
 		if (left) {
 			return left;
 		}
-		return equal ? current : NULL;
+
+		// unreachable?
+		return NULL;
 	}
 
 };
@@ -123,10 +133,11 @@ int main() {
 	tree.add(18);
 	tree.add(17);
 	tree.add(19);
-	tree.inorder();
+	tree.preorder();
 	tree.lca(10, 10);
 	tree.lca(17, 6);
 	tree.lca(6, 7);
 	tree.lca(14, 17);
+	tree.lca(14, 14);
 	return 0;
 }
