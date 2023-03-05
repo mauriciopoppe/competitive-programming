@@ -1,3 +1,5 @@
+#ifndef THREAD_SAFE_VECTOR_GUARD
+#define THREAD_SAFE_VECTOR_GUARD
 #include <vector>
 #include <mutex>
 
@@ -27,4 +29,4 @@ public:
         return out;
     }
 };
-
+#endif

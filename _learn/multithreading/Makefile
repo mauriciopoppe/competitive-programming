@@ -34,6 +34,9 @@ dancers_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.
 PROGRAMS += producer_consumer_same_number
 producer_consumer_same_number_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o
 
+PROGRAMS += readers_writers
+readers_writers_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o
+
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
 # Set the object file names, with the source directory stripped

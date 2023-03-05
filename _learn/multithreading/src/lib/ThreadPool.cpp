@@ -1,3 +1,5 @@
+#ifndef THREADPOOL_GUARD
+#define THREADPOOL_GUARD
 #include <algorithm>
 #include <chrono>
 #include <condition_variable>
@@ -98,3 +100,4 @@ public:
 		_cond.notify_one();
 	}
 };
+#endif

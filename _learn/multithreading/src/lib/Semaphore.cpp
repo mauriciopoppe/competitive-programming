@@ -1,3 +1,5 @@
+#ifndef SEMAPHORE_GUARD
+#define SEMAPHORE_GUARD
 #include <mutex>
 #include <condition_variable>
 
@@ -28,3 +30,4 @@ public:
 		_cv.notify_one();
 	}
 };
+#endif

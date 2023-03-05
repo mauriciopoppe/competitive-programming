@@ -1,3 +1,5 @@
+#ifndef BARRIER_GUARD
+#define BARRIER_GUARD
 #include "./Semaphore.cpp"
 
 class Barrier {
@@ -46,3 +48,4 @@ public:
         _turnstile2->Signal();
     }
 };
+#endif
