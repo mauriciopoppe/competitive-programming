@@ -15,7 +15,7 @@ public:
     Demo(int n_threads) {
         _threads.resize(n_threads);
 
-        ThreadSafeVector ts_messages;
+        ThreadSafeVector<std::string> ts_messages;
         Barrier barrier(n_threads);
         for (int i = 0; i < n_threads; i += 1) {
             std::thread t(&Demo::Run, this, std::ref(ts_messages), std::ref(barrier));
@@ -36,7 +36,7 @@ public:
         }
     }
 
-    void Run(ThreadSafeVector &v, Barrier &b) {
+    void Run(ThreadSafeVector<std::string> &v, Barrier &b) {
         v.Push("0");
         b.Wait();
         v.Push("1");

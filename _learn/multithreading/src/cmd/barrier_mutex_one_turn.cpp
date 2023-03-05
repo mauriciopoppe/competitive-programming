@@ -18,7 +18,7 @@ public:
         _n = n_threads;
         _threads.resize(n_threads);
 
-        ThreadSafeVector ts_messages;
+        ThreadSafeVector<std::string> ts_messages;
         for (int i = 0; i < (int)_threads.size(); i += 1) {
             std::thread t(&Demo::Run, this, std::ref(ts_messages));
             _threads[i] = std::move(t);
@@ -39,7 +39,7 @@ public:
         }
     }
 
-    void Run(ThreadSafeVector &v) {
+    void Run(ThreadSafeVector<std::string> &v) {
         v.Push("0");
         {
             std::lock_guard<std::mutex> g(_mu);

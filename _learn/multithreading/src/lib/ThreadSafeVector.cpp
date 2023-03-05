@@ -1,14 +1,15 @@
 #include <vector>
 #include <mutex>
 
+template <class T>
 class ThreadSafeVector {
     std::mutex _mu;
-    std::vector<std::string> v;
+    std::vector<T> v;
 
 public:
-    void Push(std::string str) {
+    void Push(T item) {
         std::lock_guard<std::mutex> g(_mu);
-        v.push_back(str);
+        v.push_back(item);
     }
 
     void Pop() {
@@ -20,9 +21,9 @@ public:
         return v.size();
     }
 
-    std::vector<std::string> Clone() {
+    std::vector<T> Clone() {
         std::lock_guard<std::mutex> g(_mu);
-        std::vector<std::string> out = v;
+        std::vector<T> out = v;
         return out;
     }
 };

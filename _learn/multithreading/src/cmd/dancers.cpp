@@ -17,7 +17,7 @@ public:
     // `n_threads` threads, access to a critical section inside each thread is controller
     // by at most `semaphore_capacity` concurrent threads.
     Demo(int n_threads) {
-        ThreadSafeVector ts_messages;
+        ThreadSafeVector<std::string> ts_messages;
         _leaders = _followers = 0;
         _mutex = new Semaphore(1);
         _leader = new Semaphore(0);
@@ -55,7 +55,7 @@ public:
         free(_rendezvous);
     }
 
-    void Leader(ThreadSafeVector &v) {
+    void Leader(ThreadSafeVector<std::string> &v) {
         _mutex->Wait();
         if (_followers > 0) {
             // At least 1 leader and at least 1 follower, let the follower know that we can dance
@@ -74,7 +74,7 @@ public:
 
     }
 
-    void Follower(ThreadSafeVector &v) {
+    void Follower(ThreadSafeVector<std::string> &v) {
         _mutex->Wait();
         if (_leaders > 0) {
             // At least 1 follower and at least 1 leader, let the follower know that we can dance

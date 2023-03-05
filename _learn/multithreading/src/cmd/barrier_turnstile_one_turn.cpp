@@ -19,7 +19,7 @@ public:
         _n = n_threads;
         _threads.resize(n_threads);
 
-        ThreadSafeVector ts_messages;
+        ThreadSafeVector<std::string> ts_messages;
         Semaphore mutex(1);
         Semaphore barrier(0);
         for (int i = 0; i < (int)_threads.size(); i += 1) {
@@ -42,7 +42,7 @@ public:
         }
     }
 
-    void Run(ThreadSafeVector &v, Semaphore &mutex, Semaphore &barrier) {
+    void Run(ThreadSafeVector<std::string> &v, Semaphore &mutex, Semaphore &barrier) {
         v.Push("0");
         mutex.Wait();
         _count += 1;
