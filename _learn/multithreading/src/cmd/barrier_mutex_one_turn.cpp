@@ -50,7 +50,7 @@ public:
         }
         {
             std::unique_lock<std::mutex> g(_mu);
-            while (_n != 0) {
+            if (_n != 0) {
                 _cv.wait(g);
             }
         }

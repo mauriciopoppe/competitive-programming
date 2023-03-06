@@ -37,6 +37,12 @@ producer_consumer_same_number_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)
 PROGRAMS += readers_writers
 readers_writers_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o
 
+PROGRAMS += readers_writers_lightswitch
+readers_writers_lightswitch_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Lightswitch.o
+
+PROGRAMS += readers_writers_prevent_starvation
+readers_writers_prevent_starvation_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Lightswitch.o
+
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
 # Set the object file names, with the source directory stripped
