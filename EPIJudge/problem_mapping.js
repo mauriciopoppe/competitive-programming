@@ -424,7 +424,7 @@ problem_mapping = {
         },
         "5.18 Compute the spiral ordering of a 2D array": {
             "C++: spiral_ordering.cc": {
-                "passed": 0,
+                "passed": 51,
                 "total": 51
             },
             "Java: SpiralOrdering.java": {
@@ -944,7 +944,7 @@ problem_mapping = {
         },
         "8.06 Compute binary tree nodes in order of increasing depth": {
             "C++: tree_level_order.cc": {
-                "passed": 0,
+                "passed": 3852,
                 "total": 3852
             },
             "Java: TreeLevelOrder.java": {

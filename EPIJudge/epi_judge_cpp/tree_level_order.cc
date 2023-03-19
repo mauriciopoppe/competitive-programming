@@ -8,8 +8,28 @@ using std::vector;
 
 vector<vector<int>> BinaryTreeDepthOrder(
     const unique_ptr<BinaryTreeNode<int>>& tree) {
-  // TODO - you fill in here.
-  return {};
+  vector<vector<int>> out;
+  if (!tree.get()) { return out; }
+
+  queue<pair<int, BinaryTreeNode<int>*>> q;
+  q.push({ 0, tree.get() });
+  while (!q.empty()) {
+    int level;
+    BinaryTreeNode<int>* node;
+    tie(level, node) = q.front();
+    q.pop();
+    if (level + 1 > out.size()) {
+      out.push_back(vector<int>());
+    }
+    out[level].push_back(node->data);
+    if (node->left != nullptr) {
+      q.push({ level+1, node->left.get() });
+    }
+    if (node->right != nullptr) {
+      q.push({ level+1, node->right.get() });
+    }
+  }
+  return out;
 }
 
 int main(int argc, char* argv[]) {
