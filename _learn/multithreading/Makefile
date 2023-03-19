@@ -43,6 +43,9 @@ readers_writers_lightswitch_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/l
 PROGRAMS += readers_writers_prevent_starvation
 readers_writers_prevent_starvation_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Lightswitch.o
 
+PROGRAMS += web_crawler
+web_crawler_OBJS = $(BUILD_PATH)/lib/Semaphore.o $(BUILD_PATH)/lib/ThreadSafeVector.o $(BUILD_PATH)/lib/Barrier.o
+
 # Find all source files in the source directory, sorted by most recently modified
 SOURCES = $(shell find $(SRC_PATH) -name '*.cpp' | sort -k 1nr | cut -f2-)
 # Set the object file names, with the source directory stripped
